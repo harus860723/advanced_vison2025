@@ -7,13 +7,13 @@ import torch
 import torch.nn as nn
 
 
-class PatchEmbedding(nn.Module): # 画像をパッチに分割，埋め込みに変換
+class PatchEmbedding(nn.Module):                # 画像をパッチに分割，埋め込みに変換
     def __init__(
         self, 
-        embed_dim,# 各パッチを表すベクトルの次元数
-        img_size=32,# 入力画像の縦横サイズ
-        patch_size=8, # 1パッチの縦横サイズ
-        in_channels=3 # 入力チャネル数
+        embed_dim,                              # 各パッチを表すベクトルの次元数
+        img_size=32,                            # 入力画像の縦横サイズ
+        patch_size=8,                           # 1パッチの縦横サイズ
+        in_channels=3                           # 入力チャネル数
         
         ):
         super().__init__()
@@ -31,14 +31,14 @@ class PatchEmbedding(nn.Module): # 画像をパッチに分割，埋め込みに
             stride=patch_size
         )
 
-    def forward(self, x):# 入力x:(B, C, H, W)
-        x = self.proj(x)                  # パッチ化と埋め込み
-        x = x.flatten(2)                  # 平坦化
-        x = x.transpose(1, 2)             # 軸の入れ替え
+    def forward(self, x):                       # 入力x:(B, C, H, W)
+        x = self.proj(x)                        # パッチ化と埋め込み
+        x = x.flatten(2)                        # 平坦化
+        x = x.transpose(1, 2)                   # 軸の入れ替え
         return x
 
 
-class VisionTransformer(nn.Module):# CLSトークンを用いて画像分類
+class VisionTransformer(nn.Module):             # CLSトークンを用いて画像分類
     def __init__(
         self,
         embed_dim,
@@ -62,15 +62,15 @@ class VisionTransformer(nn.Module):# CLSトークンを用いて画像分類
 
         num_patches = self.patch_embed.num_patches
 
-        self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim))# CLSトークン
+        self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim)) # CLSトークン
 
-        self.pos_embed = nn.Parameter(# 位置埋め込み
+        self.pos_embed = nn.Parameter(                              # 位置埋め込み
             torch.zeros(1, num_patches + 1, embed_dim)
         )
 
         self.pos_dropout = nn.Dropout(dropout)
 
-        encoder_layer = nn.TransformerEncoderLayer(# transformer encoder
+        encoder_layer = nn.TransformerEncoderLayer(                 # transformer encoder
             d_model=embed_dim,
             nhead=num_heads,
             dim_feedforward=mlp_dim,

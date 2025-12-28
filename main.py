@@ -9,13 +9,13 @@ import torch
 from train import main as train_main
 
 
-def run_experiments(args):# 複数のパッチサイズ実験
+def run_experiments(args):                                              # 複数のパッチサイズ実験
     results = OrderedDict()
 
     patch_sizes = args.patch_sizes
     if os.environ.get("CI") == "true":
         patch_sizes = patch_sizes[:1]
-        
+
     for patch_size in args.patch_sizes:
         print("=" * 60)
         print(f"Running experiment with patch size = {patch_size}")

@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2025 Haruki Matsushita
 # SPDX-License-Identifier: BSD-3-Clause
-#学習と評価
+# 学習と評価
 import argparse
 import time
 import os
@@ -41,7 +41,7 @@ def train_one_epoch(model, dataloader, criterion, optimizer, device):
     return epoch_loss, epoch_acc
 
 
-def evaluate(model, dataloader, criterion, device):#testデータ性能評価
+def evaluate(model, dataloader, criterion, device):         # testデータ性能評価
     model.eval()
     running_loss = 0.0
     correct = 0
@@ -69,7 +69,7 @@ def evaluate(model, dataloader, criterion, device):#testデータ性能評価
 
 def main(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print("Using device:", device)# GPUがなければCPUを使用
+    print("Using device:", device)                          # GPUがなければCPUを使用
 
     if os.environ.get("CI") == "true":
         print("CI mode: lightweight structural check")
@@ -89,16 +89,14 @@ def main(args):
 
         assert out.shape == (2, 10)
         print("CI check passed")
-
-        # API互換性維持：test_acc を返す
         return 0.0
 
 
-    train_loader, test_loader = get_cifar10_dataloaders(#Data Loader生成
+    train_loader, test_loader = get_cifar10_dataloaders(    # Data Loader生成
         batch_size=args.batch_size
     )
 
-    model = VisionTransformer(# Vitモデル生成
+    model = VisionTransformer(                              # Vitモデル生成
         img_size=32,
         patch_size=args.patch_size,
         num_classes=10,
@@ -133,7 +131,7 @@ def main(args):
             f"Time: {elapsed:.1f}s"
         )
 
-    return test_acc#test accuracyを返す
+    return test_acc                                         #test accuracyを返す
 
 
 if __name__ == "__main__":
