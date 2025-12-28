@@ -11,6 +11,11 @@ from train import main as train_main
 def run_experiments(args):# 複数のパッチサイズ実験
     results = OrderedDict()
 
+    patch_sizes = args.patch_sizes
+
+    if args.test_mode:
+        patch_sizes = [args.patch_sizes[0]]
+
     for patch_size in args.patch_sizes:
         print("=" * 60)
         print(f"Running experiment with patch size = {patch_size}")
@@ -18,8 +23,8 @@ def run_experiments(args):# 複数のパッチサイズ実験
 
         exp_args = argparse.Namespace(
             patch_size=patch_size,
-            epochs=args.epochs,
-            batch_size=args.batch_size,
+            epochs=1 if args.test_mode else args.epochs,
+            batch_size=2 if args.test_mode else args.batch_size,
             lr=args.lr
         )
 
@@ -45,6 +50,10 @@ if __name__ == "__main__":
         nargs="+",
         default=[4, 8, 16],
         help="List of patch sizes to compare"
+        "--test_mode",
+        action="store_true",
+        help="Run very small test for CI"
+    
     )
     parser.add_argument("--epochs", type=int, default=3)
     parser.add_argument("--batch_size", type=int, default=32)

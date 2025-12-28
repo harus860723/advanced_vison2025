@@ -15,7 +15,9 @@ def train_one_epoch(model, dataloader, criterion, optimizer, device):
     running_loss = 0.0
     correct = 0
     total = 0
-
+    #for i, (images, labels) in enumerate(dataloader):
+     #   if max_batches is not None and i >= max_batches:
+      #      break
     for images, labels in dataloader:
         images = images.to(device)
         labels = labels.to(device)
