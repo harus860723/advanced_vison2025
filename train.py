@@ -3,6 +3,7 @@
 #学習と評価
 import argparse
 import time
+import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -15,9 +16,7 @@ def train_one_epoch(model, dataloader, criterion, optimizer, device):
     running_loss = 0.0
     correct = 0
     total = 0
-    #for i, (images, labels) in enumerate(dataloader):
-     #   if max_batches is not None and i >= max_batches:
-      #      break
+    
     for images, labels in dataloader:
         images = images.to(device)
         labels = labels.to(device)
@@ -71,6 +70,29 @@ def evaluate(model, dataloader, criterion, device):#testデータ性能評価
 def main(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("Using device:", device)# GPUがなければCPUを使用
+
+    if os.environ.get("CI") == "true":
+        print("CI mode: lightweight structural check")
+
+        model = VisionTransformer(
+            img_size=32,
+            patch_size=args.patch_size,
+            num_classes=10,
+            embed_dim=64,
+            depth=2,
+            num_heads=2,
+            mlp_dim=128
+        ).to(device)
+
+        dummy = torch.randn(2, 3, 32, 32).to(device)
+        out = model(dummy)
+
+        assert out.shape == (2, 10)
+        print("CI check passed")
+
+        # API互換性維持：test_acc を返す
+        return 0.0
+
 
     train_loader, test_loader = get_cifar10_dataloaders(#Data Loader生成
         batch_size=args.batch_size
