@@ -9,15 +9,16 @@ import torch.nn as nn
 
 class PatchEmbedding(nn.Module): # 画像をパッチに分割，埋め込みに変換
     def __init__(
-        self,
+        self, 
+        embed_dim,# 各パッチを表すベクトルの次元数
         img_size=32,# 入力画像の縦横サイズ
         patch_size=8, # 1パッチの縦横サイズ
-        in_channels=3, # 入力チャネル数
-        embed_dim# 各パッチを表すベクトルの次元数
+        in_channels=3 # 入力チャネル数
+        
         ):
         super().__init__()
 
-        assert img_size % patch_size == 0,
+        assert img_size % patch_size == 0
 
         self.img_size = img_size
         self.patch_size = patch_size
@@ -40,14 +41,14 @@ class PatchEmbedding(nn.Module): # 画像をパッチに分割，埋め込みに
 class VisionTransformer(nn.Module):# CLSトークンを用いて画像分類
     def __init__(
         self,
-        img_size=32,
-        patch_size=8,
-        in_channels=3,
-        num_classes=10,
         embed_dim,
         depth,
         num_heads,
         mlp_dim,
+        img_size=32,
+        patch_size=8,
+        in_channels=3,
+        num_classes=10,
         dropout=0.1
     ):
         super().__init__()
