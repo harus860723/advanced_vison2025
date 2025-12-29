@@ -1,21 +1,22 @@
 # advanced_vison2025
-* アドバンスドビジョンの課題作成で使用したリポジトリ．
+* 2025年アドバンスドビジョンの課題作成で使用したリポジトリ．
 ## Vision Transformerに対するパッチサイズの違いによる性能比較
 
 [![test](https://github.com/harus860723/advanced_vison2025/actions/workflows/test.yml/badge.svg)](https://github.com/harus860723/advanced_vison2025/actions/workflows/test.yml)
 
 ### 概要
 * 本実験では，Vision Transformer(Vit)を用いて画像のパッチサイズを変更した場合の分類性能を比較することを目的としている．
+* Vitは入力画像を小さなパッチに分割し，それらをトークンとしてTransformer入力するモデルである．
 * 実験では，CIFAR-10データセットの画像に対してパッチサイズを変更して，それぞれの性能比較を行う．
 * パッチサイズは，4，8，16，で実験を行った．
-* 
+* テストデータ全体のうち正しく分類できた画像の割合である，テスト制度をそれぞれ出力する．
 
 ### 実行方法
 #### 準備
 * 実行環境を整える．
     * Python3
     * Pytorch
-    * Vision Transfomer
+    * torchvison
 * cloneコマンドを使用しリポジトリをインストールする．
 ```
 $ git clone https://github.com/harus860723/advanced_vison2025.git
@@ -51,15 +52,40 @@ Patch Size 16 : Test Accuracy = 0.3991
 ```
 
 ### モデルの説明
-#### Vitモデルの定義
-* 
+#### Vison Transformerの定義
+* PatchEmbeddingクラスで入力を分割し，埋め込みベクトルへ変換する．
+* VisionTransformerクラスで，CLSトークンを用いた画像分類を行う．
+* vit_custom.pyで実装される．
 
+#### データセットローダ
+* torchvisionを用いてCIFAR-10の読み込みを行う．
+* CIFAR-10について．
+    * 画像サイズ: 32×32ピクセル
+    * チャネル数: 3(RGB)
+    * クラス数: 10
+    * 学習用画像: 50000
+    * テスト用画像: 10000
+* CIFAR-10は飛行機や自動車，鳥などの10種類の物体画像から構成される画像分類用データセットである．
+* dataset_loader.pyで実装される．
 
+#### 学習と評価処理
+* モデルの生成，学習処理，テストデータによる性能評価を行う．
+* パッチサイズ4，8，16についてそれぞれ学習を行う．
+    * 損失関数: Cross Entropy Loss
+* 学習終了後に最終的なテスト制度(Test Accuracy)を返す．
+* テスト制度は，テストデータ全体のうち正しく分類できた画像の割合である．
+* train.pyで実装される．
+
+#### 実行用スクリプト
+* 複数のパッチサイズを指定し，順に実験を実行する．
+* パッチサイズとテスト制度(Test Accuacy)の対応関係を一覧で表示する．
+* main.pyで実装される．
 
 ### 実行結果
-* 
-* データセットがダウンロードされていない場合は，/dataが作成される．
+* Vitにおいて画像のパッチサイズの違いが分類性能に与える影響を調査するため，パッチサイズごとのテスト制度の比較実験を行った．
+* 実行用のスクリプトを実行した場合の学習のログについて説明する．
 * パッチサイズの4の時の学習結果を下に示す．
+* データセットがダウンロードされていない場合は，/dataが作成される．
 ```
 ============================================================
 Running experiment with patch size = 4
@@ -75,6 +101,7 @@ Epoch [1/3] Train Loss: 1.7527, Train Acc: 0.3445 | Test Loss: 1.5686, Test Acc:
 Epoch [2/3] Train Loss: 1.4960, Train Acc: 0.4518 | Test Loss: 1.3916, Test Acc: 0.4903 | Time: 53.3s
 Epoch [3/3] Train Loss: 1.3650, Train Acc: 0.4984 | Test Loss: 1.2971, Test Acc: 0.5291 | Time: 56.2s
 ```
+* 今回の実験は低スペックのCPUのみで行ったため，epoch数やバッチサイズなどのパラメータを低く設定している．
 * パッチサイズの8の時の学習結果を下に示す．
 ```
 ============================================================
@@ -103,7 +130,7 @@ Epoch [1/3] Train Loss: 1.8802, Train Acc: 0.3146 | Test Loss: 1.7572, Test Acc:
 Epoch [2/3] Train Loss: 1.7721, Train Acc: 0.3610 | Test Loss: 1.6941, Test Acc: 0.3937 | Time: 20.1s
 Epoch [3/3] Train Loss: 1.7157, Train Acc: 0.3809 | Test Loss: 1.6663, Test Acc: 0.3991 | Time: 20.1s
 ```
-* 最終的な実行結果を下に示す．
+* 最終的な実行結果，テスト制度を下に示す．
 ```
 ============================================================
 Final Results (Patch Size vs Test Accuracy)
@@ -112,8 +139,9 @@ Patch Size  4 : Test Accuracy = 0.5291
 Patch Size  8 : Test Accuracy = 0.4718
 Patch Size 16 : Test Accuracy = 0.3991
 ```
-* 考察
-
+* 実験結果から，パッチサイズが大きくなるにつれて精度が低下いていることがわかる。
+* パッチサイズが小さいほど画像の局所的な情報を細かく保持できるためと考えられる．
+* Vitにおいて，CIFAR-10の画像で実験を行った結果から，パッチサイズが小さいほど高い分類精度が得られることが確認できた．
 
 ## 使用ライブラリ
 * Python3
