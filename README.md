@@ -148,6 +148,7 @@ Patch Size 16 : Test Accuracy = 0.3991
     * テスト済み: 3.9~3.11
 * Vision Transfomer
 * Pytorch
+* torchvison
 
 ## 使用コーパス
 * CIFAR-10 Dataset
