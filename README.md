@@ -130,7 +130,7 @@ Epoch [1/3] Train Loss: 1.8802, Train Acc: 0.3146 | Test Loss: 1.7572, Test Acc:
 Epoch [2/3] Train Loss: 1.7721, Train Acc: 0.3610 | Test Loss: 1.6941, Test Acc: 0.3937 | Time: 20.1s
 Epoch [3/3] Train Loss: 1.7157, Train Acc: 0.3809 | Test Loss: 1.6663, Test Acc: 0.3991 | Time: 20.1s
 ```
-* 最終的な実行結果，テスト制度を下に示す．
+* 最終的な実行結果の，パッチサイズに対するテスト制度を下に示す．
 ```
 ============================================================
 Final Results (Patch Size vs Test Accuracy)
