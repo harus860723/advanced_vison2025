@@ -103,7 +103,7 @@ Z_0 = Z' + E_{pos}
 * WQ, WK, WV: 学習パラメータ
 ```math
 \begin{align}
-Q = W_Q Z, K = W_k Z, V = W_V Z
+Q = W_Q Z,  K = W_k Z,  V = W_V Z
 \end{align}
 ```
 ```math
