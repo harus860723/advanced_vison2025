@@ -98,9 +98,9 @@ Z_0 = Z' + E_{pos}
 \end{align}
 ```
 
-* Self-Attention
-* Z: 入力トークン列
-* WQ, WK, WV: 学習パラメータ
+* Self-Attentionの式
+    * Z: 入力トークン列
+    * WQ, WK, WV: 学習パラメータ
 ```math
 \begin{align}
 Q = W_Q Z,  K = W_k Z,  V = W_V Z
@@ -108,7 +108,7 @@ Q = W_Q Z,  K = W_k Z,  V = W_V Z
 ```
 ```math
 \begin{align}
-\text{softmax}\Biggl(\frac{QK^T}{\sqrt{D}}\Biggl)V
+\text{Attention}(Q, K, V)\text{softmax}\Biggl(\frac{QK^T}{\sqrt{D}}\Biggl)V
 \end{align}
 ```
 * vit_custom.pyで実装される．
