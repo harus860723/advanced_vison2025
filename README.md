@@ -54,7 +54,6 @@ Patch Size 16 : Test Accuracy = 0.3991
 ### モデルの説明
 #### Vison Transformerの定義
 * PatchEmbeddingクラスで入力を分割し，埋め込みベクトルへ変換する．
-* VisionTransformerクラスで，CLSトークンを用いた画像分類を行う．
 * 入力画像は以下のように表す．
 * 画像はN個のパッチに分割される．
     * B: バッチサイズ
@@ -72,6 +71,17 @@ x ∈ R^{B × C × H × W} (C = 3, H = W = 32)
 N = \Biggl(\frac{H}{P}\Biggl)^2
 \end{align}
 ```
+* 1つの画像パッチの線形埋め込み．
+    * xp: 入力画像の各パッチ
+    * WE: 重み行列
+    * bE: バイアス
+    * zp: パッチ埋め込み
+```math
+\begin{align}
+z_p = W_E x_p + b_E
+\end{align}
+```
+* VisionTransformerクラスで，CLSトークンを用いた画像分類を行う．
 * vit_custom.pyで実装される．
 
 #### データセットローダ
