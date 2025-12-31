@@ -82,6 +82,26 @@ z_p = W_E x_p + b_E
 \end{align}
 ```
 * VisionTransformerクラスで，CLSトークンを用いた画像分類を行う．
+* 分類用にCLSトークンを導入し，トークン列の先頭に追加する．
+* Z0がTransformer-encoderに入力される．
+    * zcls: CLSトークン
+    * N: パッチ数
+    * Epos: 位置埋め込み
+```math
+\begin{align}
+Z' = [z_cls; z_1; ...; z_N]
+\end{align}
+```
+```math
+\begin{align}
+z_0 = Z' + E_pos
+\end{align}
+```
+
+* Self-Attention
+```
+
+```
 * vit_custom.pyで実装される．
 
 #### データセットローダ
