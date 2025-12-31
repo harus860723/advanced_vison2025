@@ -108,7 +108,7 @@ Q = W_Q Z,  K = W_k Z,  V = W_V Z
 ```
 ```math
 \begin{align}
-softmax\Biggl(\frac{QK^T}{\sqrt{D}}\Biggl)V
+text{softmax}\Biggl(\frac{QK^T}{\sqrt{D}}\Biggl)V
 \end{align}
 ```
 * vit_custom.pyで実装される．
