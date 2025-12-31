@@ -64,12 +64,12 @@ Patch Size 16 : Test Accuracy = 0.3991
     * P: パッチサイズ
 ```math
 \begin{align}
-x ∈ R^{B*C*H*W} (C = 3, H = W = 32)
+x ∈ R^{B × C × H × W} (C = 3, H = W = 32)
 \end{align}
 ```
 ```math
 \begin{align}
-N = (\frac{H}{P})^2
+N = \bigl(\frac{H}{P})^2
 \end{align}
 ```
 * vit_custom.pyで実装される．
