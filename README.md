@@ -69,7 +69,7 @@ x ∈ R^{B × C × H × W} (C = 3, H = W = 32)
 ```
 ```math
 \begin{align}
-N = \bigl(\frac{H}{P})^2
+N = \Biggl(\frac{H}{P}\Biggl)^2
 \end{align}
 ```
 * vit_custom.pyで実装される．
