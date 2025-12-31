@@ -100,6 +100,7 @@ Z_0 = Z' + E_{pos}
 
 * Self-Attention
 * Z: 入力トークン列
+* WQ, WK, WV: 学習パラメータ
 ```math
 \begin{align}
 Q = W_Q Z, K = W_k Z, V = W_V Z
