@@ -89,12 +89,12 @@ z_p = W_E x_p + b_E
     * Epos: 位置埋め込み
 ```math
 \begin{align}
-Z' = [z_cls; z_1; ...; z_N]
+Z' = [z_{cls}; z_1; ...; z_N]
 \end{align}
 ```
 ```math
 \begin{align}
-z_0 = Z' + E_pos
+Z_0 = Z' + E_pos
 \end{align}
 ```
 
