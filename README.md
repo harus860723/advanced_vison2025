@@ -94,7 +94,7 @@ Z' = [z_{cls}; z_1; ...; z_N]
 ```
 ```math
 \begin{align}
-Z_0 = Z' + E_pos
+Z_0 = Z' + E_{pos}
 \end{align}
 ```
 
